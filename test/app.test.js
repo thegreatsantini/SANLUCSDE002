@@ -9,11 +9,9 @@ const getQuotes = require('../goodReads').getQuotes;
 const GOODREADS_ENDPOINT = process.env.GOODREADS_ENDPOINT
 
 
-
 describe('Testing GoodReads Qoutes link', function () {
     it('should return 200 status', (done) => {
         request(GOODREADS_ENDPOINT, (err, res, body) => {
-            console.log(body)
             expect(res.statusCode).to.equal(200)
             done()
         })
@@ -26,10 +24,10 @@ describe('Testing GoodReads Qoutes link', function () {
     })
 });
 
-describe('Testing data from qoutes.txt', () => {
-
+describe('Testing data from qoutes.txt',  () => {
     const fetchData = fs.readFileSync('quotes.txt', 'utf8', () => { return 'read populated file' })
     const parsed = JSON.parse(fetchData)
+    
 
     it('should be an array', (done) => {
         expect(parsed).to.be.an('array')
@@ -47,18 +45,29 @@ describe('Testing data from qoutes.txt', () => {
     })
 })
 
+describe('Facebook post scraper', function () {
 
-
-// describe('Facebook post scraper', function () {
-//     it('it sould not be empty', (done) => {
-//         expect(getQuotes()).not.to.be.empty
-//         done()
-//     })
-//     it('should be an array', (done) => {
-//         expect(getQuotes()).to.be.an('array')
-//         done()
-//     })
-//     it('should have objects with correct keys', (done) => {
-//         done()
-//     })
-// })
+    const fetchData = fs.readFileSync('facebook_posts.txt', 'utf8', () => { return 'read populated file' })
+    const parsed = JSON.parse(fetchData)
+    
+    it('should be an array', (done) => {
+        expect(parsed).to.be.an('array')
+        done()
+    })
+    it('should have array length of 8', (done) => {
+        expect(parsed).to.have.lengthOf(8)
+        done()
+    })
+    it('should be an array of objects', (done)=> {
+        parsed.forEach(val => {
+            expect(val).to.be.an('object')
+        })
+        done()
+    })
+    it('should have objects with correct keys (title, text, timestamp', (done)=> {
+        parsed.forEach(obj => {
+            expect(obj).to.have.keys(['title', 'text', 'timestamp']);
+        })
+        done()
+    })
+})
