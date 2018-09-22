@@ -1,0 +1,24 @@
+{
+  "name": "expedia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "goodReads.js",
+  "scripts": {
+    "test": "NODE_ENV=test node_modules/mocha/bin/mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.0.0",
+    "react-bootstrap": "^0.32.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
+  }
+}
