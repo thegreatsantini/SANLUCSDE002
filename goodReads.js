@@ -16,7 +16,7 @@ const rl = readline.createInterface({
 
 var recursiveAsyncReadLine = (loggedIn) => {
   if (loggedIn) {
-    getQuotes(quote => { const quotesResult = quote })
+    getQuotes()
     rl.close()
   }
   else {
@@ -36,12 +36,12 @@ const checkCredentials = (authenticated, user, pass) => {
   }, 4000)
   // return false;
 }
-// recursiveAsyncReadLine(false);
+recursiveAsyncReadLine(false);
 
 
 
 
-const getQuotes = async (done) => {
+const getQuotes = async () => {
   let data = [];
 
   const response = await axios.get(baseUrl)
@@ -70,15 +70,17 @@ const getQuotes = async (done) => {
     if (err) throw err;
     // success case, the file was saved
     console.log('Quotes saved!');
+    return 'Finished';
   });
-  return done(data)
+  return 'Finished'
+  // return done(data)
 }
-getQuotes(quote => {
-  const quotesResult = quote
-}).catch((err) => {
-  console.log('err in getQuote', err)
-  return err
-})
+// getQuotes(quote => {
+//   const quotesResult = quote
+// }).catch((err) => {
+//   console.log('err in getQuote', err)
+//   return err
+// })
 
 module.exports = {
   getQuotes: getQuotes
