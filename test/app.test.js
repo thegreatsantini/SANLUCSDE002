@@ -4,12 +4,12 @@ const assert = require('chai').assert;
 const request = require('request');
 const fs = require('fs');
 const getQuotes = require('../goodReads').getQuotes;
+const cmd = require('node-cmd');
 // const resolvePromise = require('../goodReads').resolvePromise;
 
 const GOODREADS_ENDPOINT = process.env.GOODREADS_ENDPOINT
 
-
-describe('Testing GoodReads Qoutes link', function () {
+describe('Testing GoodReads Qoutes link', () => {
     it('should return 200 status', (done) => {
         request(GOODREADS_ENDPOINT, (err, res, body) => {
             expect(res.statusCode).to.equal(200)
@@ -24,10 +24,12 @@ describe('Testing GoodReads Qoutes link', function () {
     })
 });
 
-describe('Testing data from qoutes.txt',  () => {
+describe('Testing data writen to qoutes.txt from getQuotes func', () => {
+
+    sgetQuotes()
+
     const fetchData = fs.readFileSync('quotes.txt', 'utf8', () => { return 'read populated file' })
     const parsed = JSON.parse(fetchData)
-    
 
     it('should be an array', (done) => {
         expect(parsed).to.be.an('array')
@@ -45,11 +47,13 @@ describe('Testing data from qoutes.txt',  () => {
     })
 })
 
-describe('Facebook post scraper', function () {
+describe('Facebook post scraper', async () => {
+
+    await cmd.run('python3 get_posts.py');
 
     const fetchData = fs.readFileSync('facebook_posts.txt', 'utf8', () => { return 'read populated file' })
     const parsed = JSON.parse(fetchData)
-    
+
     it('should be an array', (done) => {
         expect(parsed).to.be.an('array')
         done()
@@ -58,13 +62,13 @@ describe('Facebook post scraper', function () {
         expect(parsed).to.have.lengthOf(8)
         done()
     })
-    it('should be an array of objects', (done)=> {
+    it('should be an array of objects', (done) => {
         parsed.forEach(val => {
             expect(val).to.be.an('object')
         })
         done()
     })
-    it('should have objects with correct keys (title, text, timestamp', (done)=> {
+    it('should have objects with correct keys (title, text, timestamp', (done) => {
         parsed.forEach(obj => {
             expect(obj).to.have.keys(['title', 'text', 'timestamp']);
         })
