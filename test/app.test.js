@@ -4,6 +4,11 @@ const assert = require('chai').assert;
 const request = require('request');
 const fs = require('fs');
 const getQuotes = require('../goodReads').getQuotes;
+const chaiFiles = require('chai-files');
+const chai = require('chai')
+chai.use(chaiFiles);
+const file = chaiFiles.file;
+
 const execSync = require('child_process').execSync;
 
 const GOODREADS_ENDPOINT = process.env.GOODREADS_ENDPOINT
@@ -14,13 +19,13 @@ describe('Testing GoodReads Qoutes link', () => {
             expect(res.statusCode).to.equal(200)
             done()
         })
-    })
+    }).timeout(4000);
     it("should should not be empty", (done) => {
         request(GOODREADS_ENDPOINT, (err, res, body) => {
             expect(body).to.not.be.empty
             done()
         })
-    })
+    }).timeout(4000)
 });
 
 
@@ -33,7 +38,7 @@ describe('Testing data writen to qoutes.txt from getQuotes func', () => {
         const fetchData = fs.readFileSync('quotes.txt', 'utf8', () => { return 'read populated file' })
         parsed = JSON.parse(fetchData)
     })
-    
+
     it('should be an array', (done) => {
         expect(parsed).to.be.an('array')
         done()
@@ -48,7 +53,15 @@ describe('Testing data writen to qoutes.txt from getQuotes func', () => {
         })
         done()
     })
-})
+    it('**Deleting output file**', (done) => {
+        fs.unlinkSync('quotes.txt', (err) => {
+            if (err) throw err;
+            console.log('quotes.txt was deleted');
+        });
+        expect(file('quotes.txt')).to.not.exist;
+        done()
+    });
+});
 
 describe('Facebook post scraper', async () => {
 
@@ -79,4 +92,12 @@ describe('Facebook post scraper', async () => {
         })
         done()
     })
+    it('**Deleting output file**', (done) => {
+        fs.unlinkSync('facebook_posts.txt', (err) => {
+            if (err) throw err;
+            console.log('facebook_posts.txt was deleted');
+        });
+        expect(file('facebook_posts.txt')).to.not.exist;
+        done()
+    });
 })
