@@ -20,6 +20,7 @@ var recursiveAsyncReadLine = (loggedIn) => {
     rl.close()
   }
   else {
+    // Prompt user to login through CLI
     rl.question('Please enter your username: ', (username) => {
       rl.question('Please enter your password: ', async (password) => {
         const cleanUsername = escape(username);
@@ -73,14 +74,8 @@ const getQuotes = async () => {
     return 'Finished';
   });
   return 'Finished'
-  // return done(data)
+  
 }
-// getQuotes(quote => {
-//   const quotesResult = quote
-// }).catch((err) => {
-//   console.log('err in getQuote', err)
-//   return err
-// })
 
 module.exports = {
   getQuotes: getQuotes
