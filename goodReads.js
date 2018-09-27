@@ -32,10 +32,9 @@ var recursiveAsyncReadLine = (loggedIn) => {
   }
 };
 const checkCredentials = (authenticated, user, pass) => {
-  setTimeout(() => {
+    // call func with a true bool if the user logged in correctly with Goodreads
     recursiveAsyncReadLine(true, null, null)
-  }, 4000)
-  // return false;
+  // No cli functionality to authenticate the user with Goodreads Oauth
 }
 recursiveAsyncReadLine(false);
 
