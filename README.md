@@ -2,9 +2,10 @@
 
 ## Running the script
 
-1) in your terminal run ```git clone https://github.com/thegreatsantini/SANLUCSDE002.git```
-2) cd to the directory and run ```node goodRead.js```
-3) to run tests in the same directory run ```npm test```
+1) in your terminal run ``git clone https://github.com/thegreatsantini/SANLUCSDE002.git``
+2) ``npm i``
+2) cd to the directory and run ``node goodRead.js``
+3) to run tests in the same directory run ``npm test``
 
 ### Creating my tests
 
