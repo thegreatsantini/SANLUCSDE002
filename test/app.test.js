@@ -33,8 +33,9 @@ describe('Testing GoodReads Qoutes link', () => {
 describe('Testing data writen to qoutes.txt from getQuotes func', () => {
 
     let parsed;
-
+    // Calling getQuotes to create the output file to be tested
     getQuotes().then(() => {
+        // reading output and assining JSON to parsed var this data will be used by all the following tests in this test block
         const fetchData = fs.readFileSync('quotes.txt', 'utf8', () => { return 'read populated file' })
         parsed = JSON.parse(fetchData)
     })
